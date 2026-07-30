@@ -1,0 +1,10 @@
+---
+interface Props { name: string; price: string; description: string; features: string[]; popular?: boolean; }
+const { name, price, description, features, popular = false } = Astro.props;
+---
+<article class:list={['pricing-card', popular && 'pricing-popular']}>
+  {popular && <span class="popular-label">Most popular</span>}
+  <h3>{name}</h3><p class="pricing-description">{description}</p><p class="price">{price}<span>{price === 'Custom' ? '' : ' / month'}</span></p>
+  <a class:list={['button', !popular && 'button-outline']} href="/dashboard">{price === 'Custom' ? 'Talk to us' : 'Start for free'} <span>→</span></a>
+  <ul>{features.map((feature) => <li><span>✓</span>{feature}</li>)}</ul>
+</article>

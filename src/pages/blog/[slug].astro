@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts } from '../../data/blog';
+export function getStaticPaths() { return posts.map((post) => ({ params: { slug: post.slug }, props: { post } })); }
+const { post } = Astro.props;
+const date = new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.title, description: post.description, datePublished: post.date, author: { '@type': 'Organization', name: 'STREAM AUTH' }, publisher: { '@type': 'Organization', name: 'STREAM AUTH' } };
+---
+<BaseLayout title={`${post.title} — STREAM AUTH`} description={post.description} path={`/blog/${post.slug}`} type="article">
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <article class="article shell"><a href="/blog" class="back-link">← Back to journal</a><header><p class="eyebrow">{post.category}</p><h1>{post.title}</h1><p class="article-dek">{post.description}</p><div><span>{date}</span><i></i><span>{post.readingTime}</span></div></header><div class="article-rule"></div><div class="article-body">{post.body.map((paragraph) => <p>{paragraph}</p>)}</div><footer><p>Build with confidence.</p><a class="button" href="/dashboard">Get Started <span>→</span></a></footer></article>
+</BaseLayout>

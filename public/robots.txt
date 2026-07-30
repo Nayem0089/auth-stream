@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://streamauth.dev/sitemap-index.xml

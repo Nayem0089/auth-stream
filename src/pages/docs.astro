@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+const install = `npm install @streamauth/sdk`;
+const initialize = `import { StreamAuth } from '@streamauth/sdk';
+
+const auth = new StreamAuth({
+  appId: 'app_2V8kD',
+  publicKey: 'pk_live_...'
+});`;
+const authorize = `const session = await auth.login({
+  key: 'YOUR_LICENSE_KEY',
+  deviceId: getDeviceId()
+});
+
+if (!session.authorized) {
+  throw new Error(session.reason);
+}`;
+const nav = ['Introduction', 'Quick Start', 'API Reference', 'Authentication', 'License System', 'SDK Integration', 'Webhooks', 'FAQ'];
+---
+<BaseLayout title="Documentation — STREAM AUTH" description="Developer documentation for the Stream Auth licensing and authentication API." path="/docs">
+  <div class="docs-layout">
+    <aside class="docs-sidebar"><div class="docs-sidebar-inner"><p>GETTING STARTED</p>{nav.map((item, i) => <a class:list={[i === 0 && 'selected']} href={`#${item.toLowerCase().replaceAll(' ', '-')}`}>{item}</a>)}<hr /><p>RESOURCES</p><a href="/blog">Developer blog</a><a href="/dashboard">Dashboard</a></div></aside>
+    <article class="docs-content">
+      <p class="eyebrow">DOCUMENTATION</p><h1 id="introduction">Start protecting your software.</h1><p class="lead">Everything you need to authenticate users and manage licenses with STREAM AUTH.</p>
+      <div class="docs-callout"><span>✦</span><p><b>New to Stream Auth?</b> Create a free application in the dashboard, then return here to make your first authenticated request.</p></div>
+      <h2 id="quick-start">Quick Start</h2><p>Install the SDK for your preferred language, initialize it with your application credentials, and validate a license key. It takes less than five minutes.</p><CodeBlock code={install} language="bash" title="Terminal" />
+      <h3>Initialize the client</h3><p>Use your application ID and public key from the dashboard. Public keys can identify your app; never embed private signing keys in client software.</p><CodeBlock code={initialize} title="auth.ts" />
+      <h3>Authenticate a license key</h3><p>Call <code>login</code> whenever your application needs to confirm access. The response includes the authorization decision, a session, and any metadata you attach to the license.</p><CodeBlock code={authorize} title="auth.ts" />
+      <h2 id="api-reference">API Reference</h2><p>All API requests use HTTPS and return JSON. Authenticate server-side requests using a scoped API key from the dashboard.</p><div class="endpoint"><span class="method">POST</span><code>/v1/authenticate</code></div>
+      <h2 id="authentication">Authentication</h2><p>Client authentication verifies a license key against your application policy. Server API keys are for trusted environments and can be restricted by permission.</p>
+      <h2 id="license-system">License System</h2><p>Keys have a status, expiration, device policy, and optional custom metadata. Change these rules at any time without releasing a new build.</p>
+      <h2 id="sdk-integration">SDK Integration</h2><p>Our SDKs expose the same concepts across TypeScript, Python, .NET, and C++. Each is intentionally small and works with your existing stack.</p>
+      <h2 id="webhooks">Webhooks</h2><p>Subscribe to license events and receive signed HTTPS requests when a key is activated, revoked, or expires.</p>
+      <h2 id="faq">FAQ</h2><p><b>Can I test without a live key?</b> Yes. Create a development application and use its sandbox credentials to run your integration safely.</p>
+    </article>
+    <aside class="docs-toc"><p>ON THIS PAGE</p><a href="#introduction">Introduction</a><a href="#quick-start">Quick Start</a><a href="#api-reference">API Reference</a><a href="#authentication">Authentication</a></aside>
+  </div>
+</BaseLayout>

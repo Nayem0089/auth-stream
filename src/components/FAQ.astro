@@ -1,0 +1,9 @@
+---
+const items = [
+  ['What is STREAM AUTH?', 'STREAM AUTH is developer infrastructure for authenticating users, validating license keys, and managing protected applications from one dashboard.'],
+  ['Can I use it with an existing application?', 'Yes. The API is designed to fit desktop, web, and server applications. Start with an SDK or call the REST API directly.'],
+  ['How is pricing calculated?', 'Start on the Free plan, then upgrade when you need higher limits, advanced security controls, or a dedicated environment.'],
+  ['Does it work offline?', 'You can configure short-lived, signed authorization sessions so applications remain usable during temporary connectivity loss.']
+];
+---
+<section class="faq-section" id="faq"><div class="shell narrow"><p class="eyebrow">FAQ</p><h2>Answers for builders.</h2><div class="faq-list">{items.map(([question, answer]) => <details><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></div></section>

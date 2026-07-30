@@ -1,0 +1,17 @@
+---
+interface Props { code: string; language?: string; title?: string; }
+const { code, language = 'javascript', title = 'auth.js' } = Astro.props;
+---
+<div class="code-block">
+  <div class="code-top"><div class="window-dots"><i></i><i></i><i></i></div><span>{title}</span><button class="copy-code" type="button" data-code={code} aria-label="Copy code">Copy</button></div>
+  <pre><code class={`language-${language}`}>{code}</code></pre>
+</div>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-code').forEach((button) => {
+    button.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(button.dataset.code || '');
+      button.textContent = 'Copied';
+      window.setTimeout(() => button.textContent = 'Copy', 1600);
+    });
+  });
+</script>

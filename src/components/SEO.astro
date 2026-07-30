@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  type?: 'website' | 'article';
+  keywords?: string;
+}
+const { title, description, path = '/', type = 'website', keywords = 'software authentication, license key system, API authentication service, software licensing platform, developer license management, key authentication API' } = Astro.props;
+const canonical = new URL(path, Astro.site);
+const organization = {
+  '@context': 'https://schema.org', '@type': 'Organization', name: 'STREAM AUTH', url: Astro.site,
+  description: 'Developer infrastructure for software authentication and license management.'
+};
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="STREAM AUTH" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<script type="application/ld+json" set:html={JSON.stringify(organization)} />

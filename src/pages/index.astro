@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import DashboardPreview from '../components/DashboardPreview.astro';
+import PricingCard from '../components/PricingCard.astro';
+import FAQ from '../components/FAQ.astro';
+const loginCode = `import { streamAuth } from '@streamauth/sdk';
+
+const session = await streamAuth.login({
+  appId: 'app_2V8kD',
+  key: 'YOUR_LICENSE_KEY'
+});
+
+if (session.authorized) {
+  // Your application is protected.
+}`;
+const features = [
+  ['⌘', 'License Key Management', 'Issue, expire, revoke, and organize keys without manual overhead.'],
+  ['⌁', 'API Authentication', 'Fast, dependable authentication endpoints at the edge.'],
+  ['◎', 'User Management', 'Understand every user, session, and device from one view.'],
+  ['◈', 'Hardware ID Protection', 'Bind licenses to devices with privacy-conscious controls.'],
+  ['▦', 'Real-time Dashboard', 'See activations and requests as they happen.'],
+  ['</>', 'Developer Friendly SDK', 'Clean SDKs and APIs built around the way you ship.']
+];
+---
+<BaseLayout title="STREAM AUTH — Modern software authentication" description="Protect your software with modern license management, authentication APIs, and developer tools." path="/">
+  <Hero />
+  <section class="trust-strip"><div class="shell"><p>BUILT FOR TEAMS PROTECTING THEIR BEST WORK</p><div><span>▲ lumen</span><span>◈ Vertex</span><span>unify</span><span>◉ Northstar</span><span>▱ VANTA</span></div></div></section>
+  <section class="section" id="features"><div class="shell"><div class="section-intro"><div><p class="eyebrow">EVERYTHING YOU NEED</p><h2>Authentication that stays out of your way.</h2></div><p>Built to handle the critical parts of licensing, so you can keep your focus on the product.</p></div><div class="feature-grid">{features.map(([icon, title, description]) => <FeatureCard icon={icon} title={title} description={description} />)}</div></div></section>
+  <section class="section steps-section"><div class="shell"><div class="section-intro"><div><p class="eyebrow">SIMPLE BY DESIGN</p><h2>From idea to protected in minutes.</h2></div><a class="text-link arrow-link" href="/docs">Read the quick start →</a></div><div class="steps-grid"><article><span>01</span><h3>Create your application</h3><p>Set up an app and choose the controls that fit your product.</p></article><article><span>02</span><h3>Generate license keys</h3><p>Create keys in bulk or let your checkout issue them automatically.</p></article><article><span>03</span><h3>Integrate our API</h3><p>Add a few lines with an SDK or make a direct API request.</p></article><article><span>04</span><h3>Protect your software</h3><p>Ship confidently with access rules that update in real time.</p></article></div></div></section>
+  <section class="section developer-section"><div class="shell developer-grid"><div class="developer-copy"><p class="eyebrow">FOR DEVELOPERS</p><h2>Elegant APIs.<br/>Uncomplicated security.</h2><p>From your first request to millions of checks, Stream Auth gives you a thoughtfully designed API that feels familiar from the start.</p><a href="/docs" class="text-link arrow-link">Explore the documentation →</a></div><CodeBlock code={loginCode} title="authenticate.ts" /></div></section>
+  <section class="section dashboard-section"><div class="shell"><div class="section-intro centered"><p class="eyebrow">CLARITY AT A GLANCE</p><h2>All of your product access,<br/>in one focused view.</h2><p>Make the right call with live signals, actionable activity, and no noise.</p></div><DashboardPreview /></div></section>
+  <section class="stats-section"><div class="shell stats-grid"><div><strong>10K<span>+</span></strong><p>Applications Protected</p></div><div><strong>99.99<span>%</span></strong><p>API Uptime</p></div><div><strong>50M<span>+</span></strong><p>Authentication Requests</p></div></div></section>
+  <section class="section pricing-section" id="pricing"><div class="shell"><div class="section-intro centered"><p class="eyebrow">SIMPLE PRICING</p><h2>Start small. Scale without friction.</h2><p>Everything you need to protect your software, at every stage.</p></div><div class="pricing-grid"><PricingCard name="Free" price="$0" description="For side projects and early experiments." features={['Basic authentication', 'Up to 500 active licenses', 'Community support', 'Core dashboard']} /><PricingCard name="Pro" price="$49" description="For serious products finding their stride." popular={true} features={['Unlimited licenses', 'Advanced security', 'Priority support', 'Webhooks & analytics']} /><PricingCard name="Enterprise" price="Custom" description="For teams with unique requirements." features={['Custom solutions', 'Dedicated infrastructure', 'SLA & SSO', 'Designated support']} /></div></div></section>
+  <FAQ />
+  <section class="cta-section"><div class="shell"><p class="eyebrow">READY WHEN YOU ARE</p><h2>Build software that<br/>you can trust.</h2><p>Start protecting your application in a few minutes.</p><a class="button button-light" href="/dashboard">Get Started <span>→</span></a></div></section>
+</BaseLayout>
